@@ -4,11 +4,24 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.configs.VoltageConfigs;
+import com.ctre.phoenix6.hardware.TalonFX;
+
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class IntakeAngleSubsystem extends SubsystemBase {
+  TalonFX m_intakeAngleMotor;
+  VoltageConfigs m_config;
+  double m_targetPos;
+  PIDController m_pidController = new PIDController(0.0, 0.00, 0);
+  double ff = 0;
+  double initialPos;
   /** Creates a new IntakeAngleSubsystem. */
-  public IntakeAngleSubsystem() {}
+  public IntakeAngleSubsystem() {
+    TalonFX m_intakeAngleMotor = new TalonFX(Constants.INTAKE_ANGLE_MOTOR_ID);
+  }
 
   @Override
   public void periodic() {

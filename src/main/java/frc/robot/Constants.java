@@ -18,6 +18,9 @@ public final class Constants {
   
   //Intake Constants
   public static final int INTAKE_MOTOR_ID = 22;
+  public static final int INTAKE_IN_VOLTAGE = 10;
+  public static final int INTAKE_OUT_VOLTAGE = -3;
+  public static final int INTAKE_ANGLE_MOTOR_ID = 11;
 
   //Transport Constants
   public static final int VECTOR_WHEEL_ID = 13;
@@ -97,6 +100,11 @@ public final class Constants {
   public static final int HAT_POV_180 = 180; // Left hat down
   public static final int HAT_POV_ROTATE_LEFT = 270;
   public static final int HAT_POV_ROTATE_RIGHT = 90;
+  public static final int UPTAKE_MOTOR_ID = 0;
+  public static final int UPTAKE_UP_VOLTAGE = -3;
+  public static final int UPTAKE_DOWN_VOLTAGE = 3;
+
+
 
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
