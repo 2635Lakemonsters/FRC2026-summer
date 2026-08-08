@@ -29,7 +29,6 @@ public class RollerSubsystem extends SubsystemBase {
     m_rollerMotor.setVoltage(Constants.ROLLER_REVERSE_VOLTAGE);
   }
 
-  public
 
   @Override
   public void periodic() {
