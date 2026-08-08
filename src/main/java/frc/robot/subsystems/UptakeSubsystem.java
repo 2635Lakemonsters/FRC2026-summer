@@ -4,11 +4,32 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.hardware.TalonFX;
+import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class UptakeSubsystem extends SubsystemBase {
+  TalonFX m_uptakeMotor;
+  private Voltage m_voltageConfig = new Voltage(0);
+
   /** Creates a new UptakeSubsystem. */
-  public UptakeSubsystem() {}
+  public UptakeSubsystem() {
+    TalonFX m_uptakeMotor = new TalonFX(Constants.UPTAKE_MOTOR_ID);
+    m_uptakeMotor.getConfigurator().apply(m_voltageConfig);
+  }
+
+  public void uptakeUp() {
+    m_uptakeMotor.setVoltage(Constants.UPTAKE_UP_VOLTAGE);
+  }
+
+  public void uptakeReverse() {
+    m_uptakeMotor.setVoltage(Constants.UPTAKE_DOWN_VOLTAGE);
+  }
+
+  public void uptakeStop() {
+    m_uptakeMotor.setVoltage(0);
+  }
 
   @Override
   public void periodic() {
