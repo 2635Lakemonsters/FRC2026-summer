@@ -17,7 +17,10 @@ public final class Constants {
   //Intake Constants
   public static final int INTAKE_MOTOR_ID = 22;
 
-
+  //Transport Constants
+  public static final int VECTOR_WHEEL_ID = 13;
+  public static final int VECTOR_WHEEL_IN_VOLTAGE = -1;
+  public static final int VECTOR_WHEEL_OUT_VOLTAGE = 1;
 
 
 

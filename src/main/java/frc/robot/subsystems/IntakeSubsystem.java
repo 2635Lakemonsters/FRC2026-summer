@@ -7,8 +7,11 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class IntakeSubsystem extends SubsystemBase {
+  TalonFX m_intakeMotor
   /** Creates a new IntakeSubsystem. */
-  public IntakeSubsystem() {}
+  public IntakeSubsystem() {
+    m_intakeMotor = new TalonFX(Constants.INTAKE_MOTOR_ID);
+  }
 
   @Override
   public void periodic() {
