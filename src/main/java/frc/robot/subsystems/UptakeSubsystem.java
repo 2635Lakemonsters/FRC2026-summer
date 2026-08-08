@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.configs.VoltageConfigs;
 import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -11,7 +12,7 @@ import frc.robot.Constants;
 
 public class UptakeSubsystem extends SubsystemBase {
   TalonFX m_uptakeMotor;
-  private Voltage m_voltageConfig = new Voltage(0);
+  private VoltageConfigs m_voltageConfig = new VoltageConfigs();
 
   /** Creates a new UptakeSubsystem. */
   public UptakeSubsystem() {

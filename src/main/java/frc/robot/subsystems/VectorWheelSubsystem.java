@@ -19,15 +19,15 @@ public class VectorWheelSubsystem extends SubsystemBase {
     m_vectorWheelMotor.getConfigurator().apply(m_voltageConfig);
   }
 
-  public void vectorWheelsIn() {
+  public void vectorWheelIn() {
     m_vectorWheelMotor.setVoltage(Constants.VECTOR_WHEEL_IN_VOLTAGE);
   }
 
-  public void vectorWheelsOut() {
+  public void vectorWheelOut() {
     m_vectorWheelMotor.setVoltage(Constants.VECTOR_WHEEL_OUT_VOLTAGE);
   }
 
-  public void vectorWheelsStop() {
+  public void vectorWheelStop() {
     m_vectorWheelMotor.setVoltage(0);
   }
 
