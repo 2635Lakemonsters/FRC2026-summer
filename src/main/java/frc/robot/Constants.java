@@ -19,6 +19,11 @@ public final class Constants {
   public static final int INTAKE_IN_VOLTAGE = 10;
   public static final int INTAKE_OUT_VOLTAGE = -3;
   public static final int INTAKE_ANGLE_MOTOR_ID = 11;
+  public static final int VOLTAGE_TIME_CONSTANT = 10;
+  public static final double INTAKE_ANGLE_FF = -0.25;
+  public static final double INTAKE_ANGLE_DOWN_VOLTAGE = 0.5;
+  public static final double INTAKE_ANGLE_UP_VOLTAGE = -2.5;
+  public static final double INTAKE_HALF_UP_VOLTAGE = -1.5;
 
   //Transport Constants
   public static final int VECTOR_WHEEL_ID = 13;
@@ -27,6 +32,9 @@ public final class Constants {
   public static final int UPTAKE_MOTOR_ID = 0;
   public static final int UPTAKE_UP_VOLTAGE = -3;
   public static final int UPTAKE_DOWN_VOLTAGE = 3;
+  public static final int ROLLER_MOTOR_ID = 12;
+  public static final int ROLLER_REVERSE_VOLTAGE = -2;
+  public static final int ROLLER_VOLTAGE = 2;
 
 
 
