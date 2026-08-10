@@ -33,11 +33,10 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final IntakeSubsystem m_exampleSubsystem = new IntakeSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
+  //private final CommandXboxController m_driverController =
+      //new CommandXboxController(OperatorConstants.kDriverControllerPort);
   // Joysticks
   private final SendableChooser<Command> autoChooser = new SendableChooser<>();
   public static Joystick rightJoystick = new Joystick(Constants.RIGHT_JOYSTICK_CHANNEL);
@@ -84,6 +83,16 @@ public class RobotContainer {
 
     //Right Joystick
     Trigger intakeIn = new JoystickButton(rightJoystick, 1);
+    Trigger intakeOut = new JoystickButton(rightJoystick, 4);
+    
+    
+
+
+
+    intakeIn.whileTrue(m_intakeCommand);
+
+    intakeOut.whileTrue(m_intakeOutCommand);
+
   }
 
   /**
