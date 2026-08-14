@@ -22,7 +22,7 @@ public class IntakeAngleSubsystem extends SubsystemBase {
   boolean pidMode = false;
   /** Creates a new IntakeAngleSubsystem. */
   public IntakeAngleSubsystem() {
-    TalonFX m_intakeAngleMotor = new TalonFX(Constants.INTAKE_ANGLE_MOTOR_ID);
+    m_intakeAngleMotor = new TalonFX(Constants.INTAKE_ANGLE_MOTOR_ID);
     m_intakeAngleMotor.setNeutralMode(NeutralModeValue.Brake);
 
     m_voltageConfig = new VoltageConfigs();
