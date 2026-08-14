@@ -31,6 +31,7 @@ public class IntakeCommand extends Command {
   @Override
   public void execute() {
     m_intakeSubsystem.intakeIn();
+    System.out.println("---Executing---");
   }
 
   // Called once the command ends or is interrupted.

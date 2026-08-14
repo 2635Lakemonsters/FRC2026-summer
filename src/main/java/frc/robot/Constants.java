@@ -27,6 +27,9 @@ public final class Constants {
   public static final double INTAKE_ANGLE_UP_VOLTAGE = -2.5;
   public static final double INTAKE_HALF_UP_VOLTAGE = -1.5;
 
+  // Turret Constants
+  public static final int SHOOTER_MOTOR_ID = 1;
+
   //Transport Constants
   public static final int VECTOR_WHEEL_ID = 13;
   public static final int VECTOR_WHEEL_IN_VOLTAGE = -1;

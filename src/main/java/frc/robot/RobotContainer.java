@@ -12,15 +12,20 @@ import frc.robot.commands.IntakeOutCommand;
 import frc.robot.commands.UptakeCommand;
 import frc.robot.commands.UptakeReverseCommand;
 import frc.robot.commands.VectorWheelCommand;
+import frc.robot.subsystems.ActuatorSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.IntakeAngleSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ObjectTrackerSubsystem;
 import frc.robot.subsystems.RollerSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.TurretSubsystem;
 import frc.robot.subsystems.UptakeSubsystem;
 import frc.robot.subsystems.VectorWheelSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -43,6 +48,11 @@ public class RobotContainer {
   public static Joystick leftJoystick = new Joystick(Constants.LEFT_JOYSTICK_CHANNEL);
 
   // Subsystem
+  private static ObjectTrackerSubsystem m_objectTrackerSubsystem =
+      new ObjectTrackerSubsystem("shripFront");
+  private static ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem(m_objectTrackerSubsystem);
+  private static ActuatorSubsystem m_actuatorSubsystem = new ActuatorSubsystem();
+  private static TurretSubsystem m_turretSubsystem = new TurretSubsystem();
   private static DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
   private static IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
   private static RollerSubsystem m_rollerSubsystem = new RollerSubsystem();
@@ -60,6 +70,20 @@ public class RobotContainer {
   private static UptakeCommand m_uptakeCommand = new UptakeCommand(m_uptakeSubsystem);
   private static UptakeReverseCommand m_uptakeReverseCommand =
       new UptakeReverseCommand(m_uptakeSubsystem);
+
+
+  private static Autos m_autos = 
+      new Autos(
+          m_drivetrainSubsystem,
+          m_objectTrackerSubsystem,
+          m_rollerSubsystem,
+          m_uptakeSubsystem,
+          m_vectorWheelSubsystem,
+          m_shooterSubsystem,
+          m_turretSubsystem,
+          m_intakeAngleSubsystem,
+          m_actuatorSubsystem,
+          m_intakeSubsystem);
   
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -102,6 +126,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.exampleAuto(m_exampleSubsystem);
+    return m_autos.goStraight();
   }
 }
