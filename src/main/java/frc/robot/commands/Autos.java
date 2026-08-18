@@ -35,7 +35,7 @@ public class Autos extends Command {
   /** Example static factory for an autonomous command. */
   
 
-  private Autos(
+  public Autos(
     DrivetrainSubsystem driveTrainSubsystem,
     ObjectTrackerSubsystem objectTrackerSubsystem,
     RollerSubsystem rollerSubsystem,

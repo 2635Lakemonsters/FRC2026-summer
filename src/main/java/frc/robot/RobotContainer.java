@@ -71,19 +71,19 @@ public class RobotContainer {
   private static UptakeReverseCommand m_uptakeReverseCommand =
       new UptakeReverseCommand(m_uptakeSubsystem);
 
-
   private static Autos m_autos = 
-      new Autos(
-          m_drivetrainSubsystem,
-          m_objectTrackerSubsystem,
-          m_rollerSubsystem,
-          m_uptakeSubsystem,
-          m_vectorWheelSubsystem,
-          m_shooterSubsystem,
-          m_turretSubsystem,
-          m_intakeAngleSubsystem,
-          m_actuatorSubsystem,
-          m_intakeSubsystem);
+    new Autos(
+      m_drivetrainSubsystem, 
+      m_objectTrackerSubsystem, 
+      m_rollerSubsystem, 
+      m_uptakeSubsystem, 
+      m_vectorWheelSubsystem, 
+      m_shooterSubsystem, 
+      m_turretSubsystem, 
+      m_intakeAngleSubsystem, 
+      m_actuatorSubsystem, 
+      m_intakeSubsystem);
+
   
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
