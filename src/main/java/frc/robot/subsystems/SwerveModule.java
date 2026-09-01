@@ -107,12 +107,11 @@ public class SwerveModule extends SubsystemBase {
   /**
    * Sets the desired state for the module.
    *
-   * @param desiredState Desired state with speed and angle.
+   * @param desiredState 
    */
   public void setDesiredState(SwerveModuleState desiredState) {
     SwerveModuleState state = desiredState;
 
-    // Prevent rotating module if speed is less than 0.1%. Prevents Jittering.
     if (Math.abs(state.speedMetersPerSecond) < 0.001) {
       stop();
       return;
@@ -120,25 +119,22 @@ public class SwerveModule extends SubsystemBase {
 
     state.optimize(new Rotation2d(getTurningEncoderRadians()));
 
-    // Calculate the drive output from the drive PID controller.
-    // Note: due to the drive PID constants being zero currently, this driveOutput will
-    //       always be zero.
+    
     final double driveOutput =
         m_drivePIDController.calculate(
             m_driveMotor.getVelocity().getValueAsDouble(), state.speedMetersPerSecond);
 
     final double driveFeedForward = state.speedMetersPerSecond / Constants.kMaxSpeedMetersPerSecond;
 
-    // Calculate the turning motor output from the turning PID controller.
     final var turnOutput =
         m_turningPIDController.calculate(getTurningEncoderRadians(), state.angle.getRadians());
 
-    // Calculate the turning motor output from the turning PID controller.
+    
     m_driveMotor.set(
         MathUtil.clamp(
             (driveOutput + driveFeedForward) * m_driveMotorGain,
-            -1.0, // min -100%
-            1.0) // max +100%
+            -1.0, 
+            1.0) 
         );
     m_turningMotor.set(turnOutput);
   }

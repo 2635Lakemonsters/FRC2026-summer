@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class IntakeAngleSubsystem extends SubsystemBase {
-  TalonFX m_intakeAngleMotor;
+  private final TalonFX m_intakeAngleMotor;
   VoltageConfigs m_voltageConfig;
   double m_targetPose;
   PIDController m_pidController = new PIDController(0.0, 0.00, 0);
@@ -22,7 +22,7 @@ public class IntakeAngleSubsystem extends SubsystemBase {
   boolean pidMode = false;
   /** Creates a new IntakeAngleSubsystem. */
   public IntakeAngleSubsystem() {
-    TalonFX m_intakeAngleMotor = new TalonFX(Constants.INTAKE_ANGLE_MOTOR_ID);
+    m_intakeAngleMotor = new TalonFX(Constants.INTAKE_ANGLE_MOTOR_ID);
     m_intakeAngleMotor.setNeutralMode(NeutralModeValue.Brake);
 
     m_voltageConfig = new VoltageConfigs();

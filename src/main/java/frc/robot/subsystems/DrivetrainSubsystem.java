@@ -4,7 +4,10 @@
 
 package frc.robot.subsystems; 
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
+import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.studica.frc.AHRS;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
@@ -101,7 +104,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
           1.0);
 
   public final AHRS m_gyro =
-      new AHRS(AHRS.NavXComType.kMXP_SPI, 200); // new AHRS(SPI.Port.kMXP, (byte) 200);  //Nav X
+      new AHRS(AHRS.NavXComType.kMXP_SPI, 200);
 
   private final SwerveDriveKinematics m_kinematics =
       new SwerveDriveKinematics(
@@ -121,16 +124,38 @@ public class DrivetrainSubsystem extends SubsystemBase {
             m_backRight.getPosition()
           });
   public DrivetrainSubsystem() {
-    getPose();
-
     resetAngle();
     zeroOdometry();
 
-    RobotConfig config = null;
-    try{
-      config = RobotConfig.fromGUISettings();
-    } catch (Exception e) {
-      e.printStackTrace();
+    swerveModuleStates =
+        new SwerveModuleState[] {
+          new SwerveModuleState(),
+          new SwerveModuleState(),
+          new SwerveModuleState(),
+          new SwerveModuleState()
+        };
+
+    try {
+      RobotConfig config = RobotConfig.fromGUISettings();
+
+      AutoBuilder.configure(
+          this::getPose,
+          this::resetOdometry,
+          this::getChassisSpeeds,
+          speeds -> setDesiredStates(speeds),
+          new PPHolonomicDriveController(
+              new PIDConstants(5.0, 0.0, 0.0),
+              new PIDConstants(5.0, 0.0, 0.0)),
+          config,
+          () ->
+              DriverStation.getAlliance()
+                  .map(alliance -> alliance == DriverStation.Alliance.Red)
+                  .orElse(false),
+          this);
+    } catch (Exception exception) {
+      DriverStation.reportError(
+          "Failed to configure PathPlanner: " + exception.getMessage(),
+          exception.getStackTrace());
     }
   }
   public void stopMotors() {
@@ -378,45 +403,6 @@ public double toRedHead(double blueHeadingDegrees) { // Turn Angle from Blue to 
     yPowerCommanded = 0;
     rotCommanded = 0;
 
-    if (followJoysticks) {
-      if (rightJoystick.getPOV() == Constants.HAT_POV_MOVE_FORWARD) {
-        yPowerCommanded = Constants.HAT_POWER_MOVE;
-      } else if (rightJoystick.getPOV() == Constants.HAT_POV_MOVE_BACK) {
-        yPowerCommanded = Constants.HAT_POWER_MOVE * -1.0;
-      } else if (rightJoystick.getPOV() == Constants.HAT_POV_MOVE_RIGHT) {
-        xPowerCommanded = Constants.HAT_POWER_MOVE * 1.0;
-      } else if (rightJoystick.getPOV() == Constants.HAT_POV_MOVE_LEFT) {
-        xPowerCommanded = Constants.HAT_POWER_MOVE * -1.0;
-      }
-
-      if (leftJoystick.getPOV() == Constants.HAT_POV_ROTATE_RIGHT) {
-        rotCommanded = Constants.HAT_POWER_ROTATE * -1;
-      } else if (leftJoystick.getPOV() == Constants.HAT_POV_ROTATE_LEFT) {
-        rotCommanded = Constants.HAT_POWER_ROTATE;
-      }
-
-      if (Math.abs(rightJoystick.getY()) > 0.05) {
-        yPowerCommanded = -rightJoystick.getY();
-      }
-
-      if (Math.abs(rightJoystick.getX()) > 0.05) {
-        xPowerCommanded = rightJoystick.getX();
-      }
-
-      if (Math.abs(Math.pow(rightJoystick.getTwist(), 3)) > 0.05) {
-        rotCommanded = -rightJoystick.getTwist();
-      }
-
-      xPowerCommanded *= -1;
-      SmartDashboard.putNumber("swerve: xCommanded", xPowerCommanded);
-      SmartDashboard.putNumber("swerve: yCommanded", yPowerCommanded);
-      this.drive(
-          xPowerCommanded * DrivetrainSubsystem.kMaxSpeed,
-          yPowerCommanded * DrivetrainSubsystem.kMaxSpeed,
-          MathUtil.applyDeadband(rotCommanded * this.kMaxAngularSpeed, 0.2) * -1,
-          true);
-    }
-
     SmartDashboard.putNumber("m_gyro.getRotation2d()", m_gyro.getRotation2d().getDegrees());
 
     SmartDashboard.putNumber("m_gyro.getRawGyroZ", getYawGyroValue());
@@ -460,6 +446,48 @@ public double toRedHead(double blueHeadingDegrees) { // Turn Angle from Blue to 
 
     putDTSToSmartDashboard();
     tuneAngleOffsetPutToDTS();
+  }
+
+  /** Drives from the joysticks. This is used as the drivetrain's interruptible default command. */
+  public void driveWithJoysticks() {
+    if (!followJoysticks) {
+      return;
+    }
+
+    if (rightJoystick.getPOV() == Constants.HAT_POV_MOVE_FORWARD) {
+      yPowerCommanded = Constants.HAT_POWER_MOVE;
+    } else if (rightJoystick.getPOV() == Constants.HAT_POV_MOVE_BACK) {
+      yPowerCommanded = -Constants.HAT_POWER_MOVE;
+    } else if (rightJoystick.getPOV() == Constants.HAT_POV_MOVE_RIGHT) {
+      xPowerCommanded = Constants.HAT_POWER_MOVE;
+    } else if (rightJoystick.getPOV() == Constants.HAT_POV_MOVE_LEFT) {
+      xPowerCommanded = -Constants.HAT_POWER_MOVE;
+    }
+
+    if (leftJoystick.getPOV() == Constants.HAT_POV_ROTATE_RIGHT) {
+      rotCommanded = -Constants.HAT_POWER_ROTATE;
+    } else if (leftJoystick.getPOV() == Constants.HAT_POV_ROTATE_LEFT) {
+      rotCommanded = Constants.HAT_POWER_ROTATE;
+    }
+
+    if (Math.abs(rightJoystick.getY()) > 0.05) {
+      yPowerCommanded = -rightJoystick.getY();
+    }
+    if (Math.abs(rightJoystick.getX()) > 0.05) {
+      xPowerCommanded = rightJoystick.getX();
+    }
+    if (Math.abs(Math.pow(rightJoystick.getTwist(), 3)) > 0.05) {
+      rotCommanded = -rightJoystick.getTwist();
+    }
+
+    xPowerCommanded *= -1;
+    SmartDashboard.putNumber("swerve: xCommanded", xPowerCommanded);
+    SmartDashboard.putNumber("swerve: yCommanded", yPowerCommanded);
+    drive(
+        xPowerCommanded * kMaxSpeed,
+        yPowerCommanded * kMaxSpeed,
+        MathUtil.applyDeadband(rotCommanded * kMaxAngularSpeed, 0.2) * -1,
+        true);
   }
 
   /**
