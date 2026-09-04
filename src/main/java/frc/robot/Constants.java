@@ -57,6 +57,11 @@ public final class Constants {
   public static final double DRIVETRAIN_WHEELBASE_LENGTH =
       Units.inchesToMeters(24.75); // TODO: check for correct measurements
 
+  // Module locations in the WPILib coordinate system (+x forward, +y left).
+  // Keep these values synchronized with deploy/pathplanner/settings.json.
+  public static final double DRIVETRAIN_MODULE_X = 0.314;
+  public static final double DRIVETRAIN_MODULE_Y = 0.247;
+
   // SWERVE MODULE STATES
   public static final int FRONT_LEFT_MODULE_STATE_INDEX = 1;
   public static final int FRONT_RIGHT_MODULE_STATE_INDEX = 0;
@@ -65,13 +70,13 @@ public final class Constants {
 
   // ANGLE OFFSETS
   public static final double FRONT_LEFT_ANGLE_OFFSET =
-      Math.toRadians(-13 - 90 - 2.5 + 180 - 15 - 90 + 90 - 90 + 2.5 + 90 + 90 + 180 - 3);
+      Math.toRadians(-13 - 90 - 2.5 + 180 - 15 - 90 + 90 - 90 + 2.5 + 90 + 90 + 180 - 3 + 90);
   public static final double FRONT_RIGHT_ANGLE_OFFSET =
-      Math.toRadians(-53 + 90 - 229 + 45 + 99 - 90 + 90 - 90 + 88 - 90 + 9);
+      Math.toRadians(-53 + 90 - 229 + 45 + 99 - 90 + 90 - 90 + 88 - 90 + 9 + 90);
   public static final double BACK_LEFT_ANGLE_OFFSET =
-      Math.toRadians(-14 + 90 - 40 + 45 + 180 - 120 - 4 + 90 + 90 - 90 - 5.5 + 90 + 90 + 180 + 2);
+      Math.toRadians(-14 + 90 - 40 + 45 + 180 - 120 - 4 + 90 + 90 - 90 - 5.5 + 90 + 90 + 180 + 2 + 90);
   public static final double BACK_RIGHT_ANGLE_OFFSET =
-      Math.toRadians(75 - 90 + 3 + 180 - 54 + 7 + 90 - 90 + 82 - 90 + 1);
+      Math.toRadians(75 - 90 + 3 + 180 - 54 + 7 + 90 - 90 + 82 - 90 + 1 + 90);
 
   // FRONT LEFT
   public static final int DRIVETRAIN_FRONT_LEFT_ANGLE_MOTOR = 1; // 1

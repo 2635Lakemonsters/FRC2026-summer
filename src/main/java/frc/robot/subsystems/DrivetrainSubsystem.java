@@ -61,18 +61,16 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   private double m_angleCache = 180; // This is used to stash the angle before reset, in degrees
 
-  // x is forward       robot is long in the x-direction, i.e. wheelbase length
-  // y is to the left   robot is short in the y-direction, i.e. wheelbase width
-  // robot front as currently labled on the motors (requires -x trajectory to go out into the +x
-  // field direction)
+  // WPILib coordinates: +x is forward and +y is left. These positions match the values in
+  // deploy/pathplanner/settings.json.
   public final Translation2d m_frontLeftLocation =
-      new Translation2d(-m_drivetrainWheelbaseWidth / 2, m_drivetrainWheelbaseLength / 2);
+      new Translation2d(Constants.DRIVETRAIN_MODULE_X, Constants.DRIVETRAIN_MODULE_Y);
   public final Translation2d m_frontRightLocation =
-      new Translation2d(m_drivetrainWheelbaseWidth / 2, m_drivetrainWheelbaseLength / 2);
+      new Translation2d(Constants.DRIVETRAIN_MODULE_X, -Constants.DRIVETRAIN_MODULE_Y);
   public final Translation2d m_backLeftLocation =
-      new Translation2d(-m_drivetrainWheelbaseWidth / 2, -m_drivetrainWheelbaseLength / 2);
+      new Translation2d(-Constants.DRIVETRAIN_MODULE_X, Constants.DRIVETRAIN_MODULE_Y);
   public final Translation2d m_backRightLocation =
-      new Translation2d(m_drivetrainWheelbaseWidth / 2, -m_drivetrainWheelbaseLength / 2);
+      new Translation2d(-Constants.DRIVETRAIN_MODULE_X, -Constants.DRIVETRAIN_MODULE_Y);
 
   public final SwerveModule m_frontLeft =
       new SwerveModule(

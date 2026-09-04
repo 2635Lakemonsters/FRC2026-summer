@@ -23,6 +23,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -97,6 +99,12 @@ public class RobotContainer {
 
     //Right Joystick
     Trigger intakeIn = new JoystickButton(rightJoystick, 1);
+    Trigger swerveResetButton = new JoystickButton(rightJoystick, 9);
+
+    swerveResetButton.onTrue(
+        new SequentialCommandGroup(
+            new InstantCommand(() -> m_drivetrainSubsystem.resetAngle(0)).withTimeout(0.01),
+            new InstantCommand(() -> m_drivetrainSubsystem.zeroOdometry()).withTimeout(.01)));
   }
 
   /**

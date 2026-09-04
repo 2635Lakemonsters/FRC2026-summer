@@ -92,11 +92,13 @@ public class SwerveModule extends SubsystemBase {
    */
   public SwerveModuleState getState() {
     return new SwerveModuleState(
-        m_driveMotor.getVelocity().getValueAsDouble(), new Rotation2d(getTurningEncoderRadians()));
+        getVelocity(), new Rotation2d(getTurningEncoderRadians()));
   }
 
+  /** Returns the drive-wheel velocity in meters per second. */
   public double getVelocity() {
-    return m_driveMotor.getVelocity().getValueAsDouble();
+    return m_driveMotor.getVelocity().getValueAsDouble()
+        * Constants.kDriveEncoderDistancePerPulse;
   }
 
   public void stop() {
@@ -121,8 +123,7 @@ public class SwerveModule extends SubsystemBase {
 
     
     final double driveOutput =
-        m_drivePIDController.calculate(
-            m_driveMotor.getVelocity().getValueAsDouble(), state.speedMetersPerSecond);
+        m_drivePIDController.calculate(getVelocity(), state.speedMetersPerSecond);
 
     final double driveFeedForward = state.speedMetersPerSecond / Constants.kMaxSpeedMetersPerSecond;
 
