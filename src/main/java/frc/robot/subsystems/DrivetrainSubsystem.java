@@ -482,9 +482,9 @@ public double toRedHead(double blueHeadingDegrees) { // Turn Angle from Blue to 
     SmartDashboard.putNumber("swerve: xCommanded", xPowerCommanded);
     SmartDashboard.putNumber("swerve: yCommanded", yPowerCommanded);
     drive(
+        -yPowerCommanded * kMaxSpeed,
         xPowerCommanded * kMaxSpeed,
-        yPowerCommanded * kMaxSpeed,
-        MathUtil.applyDeadband(rotCommanded * kMaxAngularSpeed, 0.2) * -1,
+        MathUtil.applyDeadband(rotCommanded * kMaxAngularSpeed, 0.2),
         true);
   }
 
