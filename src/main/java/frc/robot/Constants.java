@@ -70,13 +70,13 @@ public final class Constants {
 
    // ANGLE OFFSETS
   public static final double FRONT_LEFT_ANGLE_OFFSET =
-      Math.toRadians(329);
+      Math.toRadians(-119.8 + 180);
   public static final double FRONT_RIGHT_ANGLE_OFFSET =
-      Math.toRadians(-131);
+      Math.toRadians(-50.3);
   public static final double BACK_LEFT_ANGLE_OFFSET =
-      Math.toRadians(-94.5 + 180);
+      Math.toRadians(-354.2 + 180);
   public static final double BACK_RIGHT_ANGLE_OFFSET =
-      Math.toRadians(114);
+      Math.toRadians(-152.7);
 
   // FRONT LEFT
   public static final int DRIVETRAIN_FRONT_LEFT_ANGLE_MOTOR = 1; // 1
