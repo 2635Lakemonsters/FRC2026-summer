@@ -68,15 +68,15 @@ public final class Constants {
   public static final int BACK_LEFT_MODULE_STATE_INDEX = 3;
   public static final int BACK_RIGHT_MODULE_STATE_INDEX = 2;
 
-  // ANGLE OFFSETS
+   // ANGLE OFFSETS
   public static final double FRONT_LEFT_ANGLE_OFFSET =
-      Math.toRadians(-13 - 90 - 2.5 + 180 - 15 - 90 + 90 - 90 + 2.5 + 90 + 90 + 180 - 3 + 90);
+      Math.toRadians(329);
   public static final double FRONT_RIGHT_ANGLE_OFFSET =
-      Math.toRadians(-53 + 90 - 229 + 45 + 99 - 90 + 90 - 90 + 88 - 90 + 9 + 90);
+      Math.toRadians(-131);
   public static final double BACK_LEFT_ANGLE_OFFSET =
-      Math.toRadians(-14 + 90 - 40 + 45 + 180 - 120 - 4 + 90 + 90 - 90 - 5.5 + 90 + 90 + 180 + 2 + 90);
+      Math.toRadians(-94.5 + 180);
   public static final double BACK_RIGHT_ANGLE_OFFSET =
-      Math.toRadians(75 - 90 + 3 + 180 - 54 + 7 + 90 - 90 + 82 - 90 + 1 + 90);
+      Math.toRadians(114);
 
   // FRONT LEFT
   public static final int DRIVETRAIN_FRONT_LEFT_ANGLE_MOTOR = 1; // 1
@@ -91,6 +91,7 @@ public final class Constants {
   // BACK LEFT
   public static final int DRIVETRAIN_BACK_LEFT_ANGLE_MOTOR = 3; // 3
   public static final int DRIVETRAIN_BACK_LEFT_ANGLE_ENCODER = 0; // 3
+  public static final int DRIVETRAIN_BACK_LEFT_CANCODER = 14; // CAN ID, must be unique on bus
   public static final int DRIVETRAIN_BACK_LEFT_DRIVE_MOTOR = 4; // 10
 
   // BACK RIGHT
