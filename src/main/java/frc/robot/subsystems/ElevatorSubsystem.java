@@ -6,29 +6,30 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.VoltageConfigs;
 import com.ctre.phoenix6.hardware.TalonFX;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class RollerSubsystem extends SubsystemBase {
-  TalonFX m_rollerMotor;
-
+public class ElevatorSubsystem extends SubsystemBase {
+  private final TalonFX m_elevatorMotor;
   private VoltageConfigs m_voltageConfig = new VoltageConfigs();
-  /** Creates a new RollerSubsystem. */
-  public RollerSubsystem() {
-    m_rollerMotor = new TalonFX(Constants.ROLLER_MOTOR_ID);
-    m_voltageConfig.SupplyVoltageTimeConstant = Constants.VOLTAGE_TIME_CONSTANT;
-    m_rollerMotor.getConfigurator().apply(m_voltageConfig);
+
+  /** Creates a new UptakeSubsystem. */
+  public ElevatorSubsystem() {
+    m_elevatorMotor = new TalonFX(Constants.UPTAKE_MOTOR_ID);
+    m_elevatorMotor.getConfigurator().apply(m_voltageConfig);
   }
 
-  public void rollerForward() {
-    m_rollerMotor.setVoltage(Constants.ROLLER_VOLTAGE);
+  public void uptakeUp() {
+    m_elevatorMotor.setVoltage(Constants.UPTAKE_UP_VOLTAGE);
   }
 
-  public void rollerReverse() {
-    m_rollerMotor.setVoltage(Constants.ROLLER_REVERSE_VOLTAGE);
+  public void uptakeReverse() {
+    m_elevatorMotor.setVoltage(Constants.UPTAKE_DOWN_VOLTAGE);
   }
 
+  public void uptakeStop() {
+    m_elevatorMotor.setVoltage(0);
+  }
 
   @Override
   public void periodic() {

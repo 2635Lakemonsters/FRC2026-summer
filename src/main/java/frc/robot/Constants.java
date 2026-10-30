@@ -28,9 +28,9 @@ public final class Constants {
   public static final double INTAKE_HALF_UP_VOLTAGE = -1.5;
 
   //Transport Constants
-  public static final int VECTOR_WHEEL_ID = 13;
-  public static final int VECTOR_WHEEL_IN_VOLTAGE = -1;
-  public static final int VECTOR_WHEEL_OUT_VOLTAGE = 1;
+  public static final int ELEVATOR_MOTOR_ID = 0;
+  public static final double ELEVATOR_DOWN_VOLTAGE = -3;
+  public static final double ELEVATOR_UP_VOLTAGE = 3;
   
   //Swerve Module
   public static final double kPModuleTurningController = 0.7; // 0.5
@@ -114,9 +114,6 @@ public final class Constants {
   public static final int UPTAKE_MOTOR_ID = 0;
   public static final int UPTAKE_UP_VOLTAGE = -3;
   public static final int UPTAKE_DOWN_VOLTAGE = 3;
-  public static final int ROLLER_MOTOR_ID = 12;
-  public static final int ROLLER_REVERSE_VOLTAGE = -2;
-  public static final int ROLLER_VOLTAGE = 2;
 
     // OBJECT TRACKER SUBSYSTEM
   public static final double CAMERA_TILT =

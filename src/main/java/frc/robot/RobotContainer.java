@@ -11,12 +11,10 @@ import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.IntakeOutCommand;
 import frc.robot.commands.UptakeCommand;
 import frc.robot.commands.UptakeReverseCommand;
-import frc.robot.commands.VectorWheelCommand;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.IntakeAngleSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.RollerSubsystem;
-import frc.robot.subsystems.UptakeSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.VectorWheelSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -50,21 +48,19 @@ public class RobotContainer {
   // Subsystem
   private static DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
   private static IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
-  private static RollerSubsystem m_rollerSubsystem = new RollerSubsystem();
-  private static UptakeSubsystem m_uptakeSubsystem = new UptakeSubsystem();
+  private static ElevatorSubsystem m_elevatorSubsystem = new ElevatorSubsystem();
   private static VectorWheelSubsystem m_vectorWheelSubsystem = new VectorWheelSubsystem();
   private static IntakeAngleSubsystem m_intakeAngleSubsystem = new IntakeAngleSubsystem();
 
 
   //Cmds
-  private static VectorWheelCommand m_vectorWheelCommand = new VectorWheelCommand(m_vectorWheelSubsystem);
   private static IntakeCommand m_intakeCommand =
       new IntakeCommand(m_intakeSubsystem, m_intakeAngleSubsystem);
   private static IntakeOutCommand m_intakeOutCommand =
       new IntakeOutCommand(m_intakeSubsystem, m_intakeAngleSubsystem);
-  private static UptakeCommand m_uptakeCommand = new UptakeCommand(m_uptakeSubsystem);
+  private static UptakeCommand m_uptakeCommand = new UptakeCommand(m_elevatorSubsystem);
   private static UptakeReverseCommand m_uptakeReverseCommand =
-      new UptakeReverseCommand(m_uptakeSubsystem);
+      new UptakeReverseCommand(m_elevatorSubsystem);
   
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
