@@ -27,10 +27,43 @@ public final class Constants {
   public static final double INTAKE_ANGLE_UP_VOLTAGE = -2.5;
   public static final double INTAKE_HALF_UP_VOLTAGE = -1.5;
 
+
+
   //Transport Constants
   public static final int ELEVATOR_MOTOR_ID = 0;
   public static final double ELEVATOR_DOWN_VOLTAGE = -3;
   public static final double ELEVATOR_UP_VOLTAGE = 3;
+
+  //public static final double ELEVATOR_TOTAL_DISPLACEMENT ;
+  //public static final double starting pos = 88.88
+  //public static final double -23.3
+
+ // Spool dimensions (inches)
+  public static final double SPOOL_DIAMETER = 1.5;
+  public static final double SPOOL_CIRCUMFERENCE = Math.PI * SPOOL_DIAMETER;
+  //public static final double 
+
+    // Gear ratio: 9 motor rotations = 1 spool rotation
+  public static final double ELEVATOR_GEAR_RATIO = 9.0;
+
+  // Elevator travel preset, inches
+  public static final double ELEVATOR_MIN_HEIGHT = 0.0;
+  public static final double ELEVATOR_MAX_HEIGHT = 26.5;
+
+  public static final double ELEVATOR_START_POS = 0.0;
+  public static final double ELEVATOR_LOW = 5.0;
+  public static final double ELEVATOR_MID = 13.0;
+  public static final double ELEVATOR_HIGH = 20.0;
+
+  public static final double kPElevatorPID = 0.0;
+  public static final double kIElevatorPID = 0.0;
+  public static final double kDElevatorPID = 0.0;
+
+  public static final double MAGIC_MOTION_CRUISE_VELOCITY = 1.0;
+  public static final double MAGIC_MOTION_ACCELERATION = 2.0;
+
+  public static final double ELEVATOR_MANUAL_VOLTAGE = 6.0;
+
   
   //Swerve Module
   public static final double kPModuleTurningController = 0.7; // 0.5
@@ -124,6 +157,7 @@ public final class Constants {
   public static final int CAM_X_OFFSET = 0;
   public static final int CAM_Y_OFFSET = 0;
   public static final int CAM_ANGLE_OFFSET = 0;
+public static final double MOTOR_GEAR_RATIO = 0;
 
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
