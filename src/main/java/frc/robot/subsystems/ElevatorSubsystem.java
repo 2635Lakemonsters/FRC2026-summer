@@ -47,6 +47,9 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     config.MotionMagic.MotionMagicAcceleration = Constants.MAGIC_MOTION_ACCELERATION;
 
+    // Lower value equals smoother s-curve
+    config.MotionMagic.MotionMagicJerk = Constants.MAGIC_MOTION_JERK;
+
       // Brake mode
     config.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 

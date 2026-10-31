@@ -61,6 +61,7 @@ public final class Constants {
 
   public static final double MAGIC_MOTION_CRUISE_VELOCITY = 1.0;
   public static final double MAGIC_MOTION_ACCELERATION = 2.0;
+  public static final double MAGIC_MOTION_JERK = 50.0;
 
   public static final double ELEVATOR_MANUAL_VOLTAGE = 6.0;
 

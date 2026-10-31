@@ -82,8 +82,10 @@ public class RobotContainer {
    */
   private void configureBindings() {
     //Left Joystick
-    Trigger elevatorManual = new Trigger(() -> Math.abs(rightJoystick.getY()) > 0.08);
+    Trigger elevatorManual = new Trigger(() -> Math.abs(leftJoystick.getY()) > 0.08);
     Trigger elevatorLow = new JoystickButton(leftJoystick, 7);
+    Trigger elevatorMid = new JoystickButton(leftJoystick, 8);
+    Trigger elevatorHigh = new JoystickButton(leftJoystick, 8);
     //Right Joystick
     Trigger intakeIn = new JoystickButton(rightJoystick, 1);
     Trigger intakeOut = new JoystickButton(rightJoystick, 2);
@@ -96,21 +98,20 @@ public class RobotContainer {
 
     elevatorManual.whileTrue(
         new RunCommand(
-            () -> m_elevatorSubsystem.manualControl(-rightJoystick.getY()),
-            m_elevatorSubsystem
-        )
-    );
+            () -> m_elevatorSubsystem.manualControl(-leftJoystick.getY()), m_elevatorSubsystem));
 
     elevatorManual.onFalse(
         new InstantCommand(
-            m_elevatorSubsystem::holdPosition,
-            m_elevatorSubsystem
-        )
-    );
+            m_elevatorSubsystem::holdPosition, m_elevatorSubsystem));
 
     elevatorLow.onTrue(new InstantCommand(
-      () -> m_elevatorSubsystem.moveToHeight(Constants.ELEVATOR_LOW),m_elevatorSubsystem));
+      () -> m_elevatorSubsystem.moveToHeight(Constants.ELEVATOR_LOW), m_elevatorSubsystem));
+    
+    elevatorMid.onTrue(new InstantCommand(
+      () -> m_elevatorSubsystem.moveToHeight(Constants.ELEVATOR_MID), m_elevatorSubsystem));
 
+    elevatorHigh.onTrue(new InstantCommand(
+      () -> m_elevatorSubsystem.moveToHeight(Constants.ELEVATOR_HIGH), m_elevatorSubsystem));
 
     intakeIn.whileTrue(m_intakeCommand);
 
