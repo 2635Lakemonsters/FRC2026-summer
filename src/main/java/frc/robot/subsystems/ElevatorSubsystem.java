@@ -57,7 +57,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     m_elevatorMotor.getConfigurator().apply(config);
   }
 
-  public void zeroEncoder() {
+  public void zeroElevatorEncoder() {
 
     m_elevatorMotor.setPosition(0);
 

@@ -27,7 +27,8 @@ public final class Constants {
   public static final double INTAKE_ANGLE_UP_VOLTAGE = -2.5;
   public static final double INTAKE_HALF_UP_VOLTAGE = -1.5;
 
-
+  // Extender constants
+  public static final int EXTENDER_MOTOR_ID = 0;
 
   //Transport Constants
   public static final int ELEVATOR_MOTOR_ID = 0;

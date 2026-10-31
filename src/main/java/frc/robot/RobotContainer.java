@@ -32,7 +32,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController m_driverController =
+  //private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
   // Joysticks
   private final SendableChooser<Command> autoChooser;
@@ -43,6 +43,7 @@ public class RobotContainer {
   private static DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
   private static IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
   private static ElevatorSubsystem m_elevatorSubsystem = new ElevatorSubsystem();
+  private static ExtenderSubsystem m_extenderSubsystem = new ExtenderSubsystem();
 
   //Cmds
   private static IntakeCommand m_intakeCommand = new IntakeCommand(m_intakeSubsystem);
@@ -51,6 +52,10 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+
+    m_elevatorSubsystem.zeroElevatorEncoder();
+    m_extenderSubsystem.zeroExtenderEncoder();
+
     m_drivetrainSubsystem.setDefaultCommand(
         m_drivetrainSubsystem.run(m_drivetrainSubsystem::driveWithJoysticks));
 
