@@ -6,22 +6,18 @@ package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.IntakeAngleCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.IntakeOutCommand;
-import frc.robot.commands.UptakeCommand;
-import frc.robot.commands.UptakeReverseCommand;
 import frc.robot.subsystems.DrivetrainSubsystem;
-import frc.robot.subsystems.IntakeAngleSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
-import frc.robot.subsystems.VectorWheelSubsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -35,8 +31,6 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final IntakeSubsystem m_exampleSubsystem = new IntakeSubsystem();
-
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
@@ -49,19 +43,11 @@ public class RobotContainer {
   private static DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
   private static IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
   private static ElevatorSubsystem m_elevatorSubsystem = new ElevatorSubsystem();
-  private static VectorWheelSubsystem m_vectorWheelSubsystem = new VectorWheelSubsystem();
-  private static IntakeAngleSubsystem m_intakeAngleSubsystem = new IntakeAngleSubsystem();
-
 
   //Cmds
-  private static IntakeCommand m_intakeCommand =
-      new IntakeCommand(m_intakeSubsystem, m_intakeAngleSubsystem);
-  private static IntakeOutCommand m_intakeOutCommand =
-      new IntakeOutCommand(m_intakeSubsystem, m_intakeAngleSubsystem);
-  private static UptakeCommand m_uptakeCommand = new UptakeCommand(m_elevatorSubsystem);
-  private static UptakeReverseCommand m_uptakeReverseCommand =
-      new UptakeReverseCommand(m_elevatorSubsystem);
-  
+  private static IntakeCommand m_intakeCommand = new IntakeCommand(m_intakeSubsystem);
+  private static IntakeOutCommand m_intakeOutCommand = new IntakeOutCommand(m_intakeSubsystem);
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -76,8 +62,13 @@ public class RobotContainer {
     }
     SmartDashboard.putData("Auto Chooser", autoChooser);
 
+    
+
     // Configure the trigger bindings
     configureBindings();
+
+
+
   }
 
   /**
@@ -91,16 +82,40 @@ public class RobotContainer {
    */
   private void configureBindings() {
     //Left Joystick
-    Trigger shoot = new JoystickButton(leftJoystick, 1);
-
+    Trigger elevatorManual = new Trigger(() -> Math.abs(leftJoystick.getY()) > 0.08);
+    Trigger elevatorLow = new JoystickButton(leftJoystick, 7);
+    Trigger elevatorMid = new JoystickButton(leftJoystick, 8);
+    Trigger elevatorHigh = new JoystickButton(leftJoystick, 8);
     //Right Joystick
     Trigger intakeIn = new JoystickButton(rightJoystick, 1);
+    Trigger intakeOut = new JoystickButton(rightJoystick, 2);
     Trigger swerveResetButton = new JoystickButton(rightJoystick, 9);
 
     swerveResetButton.onTrue(
         new SequentialCommandGroup(
             new InstantCommand(() -> m_drivetrainSubsystem.resetAngle(0)).withTimeout(0.01),
             new InstantCommand(() -> m_drivetrainSubsystem.zeroOdometry()).withTimeout(.01)));
+
+    elevatorManual.whileTrue(
+        new RunCommand(
+            () -> m_elevatorSubsystem.manualControl(-leftJoystick.getY()), m_elevatorSubsystem));
+
+    elevatorManual.onFalse(
+        new InstantCommand(
+            m_elevatorSubsystem::holdPosition, m_elevatorSubsystem));
+
+    elevatorLow.onTrue(new InstantCommand(
+      () -> m_elevatorSubsystem.moveToHeight(Constants.ELEVATOR_LOW), m_elevatorSubsystem));
+    
+    elevatorMid.onTrue(new InstantCommand(
+      () -> m_elevatorSubsystem.moveToHeight(Constants.ELEVATOR_MID), m_elevatorSubsystem));
+
+    elevatorHigh.onTrue(new InstantCommand(
+      () -> m_elevatorSubsystem.moveToHeight(Constants.ELEVATOR_HIGH), m_elevatorSubsystem));
+
+    intakeIn.whileTrue(m_intakeCommand);
+
+    intakeOut.whileTrue(m_intakeOutCommand);
   }
 
   /**

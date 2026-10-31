@@ -7,9 +7,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class IntakeAutoCommand extends Command {
-  /** Creates a new IntakeAutoCommand. */
-  public IntakeAutoCommand() {
+public class ExtenderCommand extends Command {
+  /** Creates a new ExtenderCommand. */
+  public ExtenderCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
